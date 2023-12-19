@@ -2,6 +2,7 @@ from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
 from .base_model import BaseModel
+from .tags_posts import TagsPostsAssociation
 
 
 class Post(BaseModel):
@@ -16,3 +17,9 @@ class Post(BaseModel):
     author = relationship('User', back_populates='posts', uselist=False)
     blog = relationship('Blog', back_populates='posts', uselist=False)
     comments = relationship('Comments', back_populates='post', uselist=True)
+    tags = relationship(
+        'Tags',
+        secondary=TagsPostsAssociation.__table__,
+        back_populates='posts',
+        uselist=True
+    )
