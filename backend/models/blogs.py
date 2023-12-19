@@ -10,7 +10,13 @@ class Blog(BaseModel):
 
     url = Column(String(100), nullable=False, unique=True, doc='Адрес блога')
     title = Column(String(100), nullable=False, doc='Заголовок')
-    description = Column(String(500), nullable=False, doc='Описание')
-    user_id = Column(Integer, ForeignKey('users.id'), doc='Пользователь')
+    description = Column(String(500), nullable=True, doc='Описание')
+    user_id = Column(
+        Integer,
+        ForeignKey('users.id'),
+        nullable=False,
+        doc='Пользователь',
+    )
 
-    user = relationship('User', back_populates='blog')
+    user = relationship('User', back_populates='blog', uselist=False)
+    posts = relationship('Post', back_populates='blog', uselist=True)
