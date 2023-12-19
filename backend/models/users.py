@@ -1,4 +1,5 @@
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
 from .base_model import BaseModel
 
@@ -16,3 +17,4 @@ class User(BaseModel):
     last_name = Column(String(100), nullable=True, doc='Фамилия')
     middle_name = Column(String(100), nullable=True, doc='Отчество')
 
+    blog = relationship('Blog', back_populates='user')
