@@ -5,6 +5,7 @@ from .base_model import BaseModel
 
 
 class Post(BaseModel):
+    """Модель поста в блоге"""
     __tablename__ = 'posts'
 
     title = Column(String(100), nullable=False, doc='Заголовок')
@@ -14,3 +15,4 @@ class Post(BaseModel):
 
     author = relationship('User', back_populates='posts', uselist=False)
     blog = relationship('Blog', back_populates='posts', uselist=False)
+    comments = relationship('Comments', back_populates='post', uselist=True)

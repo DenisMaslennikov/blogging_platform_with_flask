@@ -19,3 +19,4 @@ class User(BaseModel):
 
     blog = relationship('Blog', back_populates='user', uselist=False)
     posts = relationship('Post', back_populates='author', uselist=True)
+    comments = relationship('Comments', back_populates='author', uselist=True)
