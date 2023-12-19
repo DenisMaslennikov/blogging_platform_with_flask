@@ -7,8 +7,10 @@ class User(BaseModel):
     """Модель пользователя"""
     __tablename__ = 'users'
 
-    username = Column(String(100), nullable=False, doc='Имя пользователя')
-    email = Column(String(100), nullable=False, doc='Е-мейл')
+    username = Column(
+        String(100), nullable=False, doc='Имя пользователя', unique=True
+    )
+    email = Column(String(100), nullable=False, doc='Е-мейл', unique=True)
     password = Column(String(300), nullable=False, doc='Хеш пароля')
     first_name = Column(String(100), nullable=True, doc='Имя')
     last_name = Column(String(100), nullable=True, doc='Фамилия')
