@@ -1,6 +1,9 @@
 #  Платформа для создания блогов на Flask 
 Pet проект для изучение Flask и SQLAlchemy
 
+## Стек технологий
+Python, Flask, SQLAlchemy, Alembic.
+
 ## Запуск проекта:
 1. Создайте файл .env  в папке config основываясь на файле .env.template
 2. Запуск DEV версии

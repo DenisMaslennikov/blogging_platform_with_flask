@@ -9,8 +9,8 @@ class Tag(BaseModel):
     """Модель тегов к постам"""
     __tablename__ = 'tags'
 
-    name = Column(String(100), unique=True, doc='Тег')
-    slug = Column(String(100), unique=True, doc='Слаг')
+    name = Column(String(100), unique=True, doc='Тег', nullable=False)
+    slug = Column(String(100), unique=True, doc='Слаг', nullable=False)
 
     posts = relationship(
         'Post',
