@@ -1,10 +1,10 @@
 from sqlalchemy import INTEGER, TIMESTAMP, Column
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, Query
 from sqlalchemy.sql.expression import func
 
 
 class BaseModel(DeclarativeBase):
-
+    query: Query
     __abstract__ = True
 
     id = Column(
