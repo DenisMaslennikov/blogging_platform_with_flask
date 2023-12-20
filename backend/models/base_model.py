@@ -2,8 +2,6 @@ from sqlalchemy import Column, INTEGER, TIMESTAMP
 from sqlalchemy.sql.expression import func
 from sqlalchemy.orm import DeclarativeBase
 
-from . import Base
-
 
 class BaseModel(DeclarativeBase):
 
@@ -27,5 +25,3 @@ class BaseModel(DeclarativeBase):
         nullable=True,
         doc='Время последнего изменения записи'
     )
-
-

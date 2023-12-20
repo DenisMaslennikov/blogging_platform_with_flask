@@ -18,4 +18,3 @@ class Tag(BaseModel):
         back_populates='tags',
         uselist=True,
     )
-T
