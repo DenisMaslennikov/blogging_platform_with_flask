@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 
 from .base_model import BaseModel
@@ -16,6 +16,9 @@ class User(BaseModel):
     first_name = Column(String(100), nullable=True, doc='Имя')
     last_name = Column(String(100), nullable=True, doc='Фамилия')
     middle_name = Column(String(100), nullable=True, doc='Отчество')
+    is_active = Column(
+        Boolean, nullable=False, default=False, doc='Пользователь активен'
+    )
 
     blog = relationship('Blog', back_populates='user', uselist=False)
     posts = relationship('Post', back_populates='author', uselist=True)
