@@ -1,6 +1,6 @@
-from sqlalchemy import Column, INTEGER, TIMESTAMP
-from sqlalchemy.sql.expression import func
+from sqlalchemy import INTEGER, TIMESTAMP, Column
 from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.sql.expression import func
 
 
 class BaseModel(DeclarativeBase):

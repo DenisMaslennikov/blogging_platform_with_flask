@@ -1,5 +1,3 @@
-from flask import Flask
-
 from core.app import get_app
 from core.config import DebugConfig
 
@@ -13,5 +11,3 @@ if __name__ == '__main__':
         passthrough_errors=True,
         debug=True
     )
-
-
