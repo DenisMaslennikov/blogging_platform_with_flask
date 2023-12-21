@@ -11,12 +11,15 @@ class Post(BaseModel):
 
     title = Column(String(100), nullable=False, doc='Заголовок')
     text = Column(TEXT, nullable=False, doc='Текст поста')
+    slug = Column(String(100), nullable=False, doc='Слаг')
     author_id = Column(Integer, ForeignKey('users.id'), doc='Автор')
     blog_id = Column(Integer, ForeignKey('blogs.id'), doc='Блог')
     pub_date = Column(DateTime, doc='Дата публикации')
     post_image_file = Column(
         String(255), nullable=True, doc='Изображение к посту'
     )
+    anons = Column(String(500), nullable=False, doc='Анонс')
+    views = Column(Integer, default=0, nullable=False, doc='Просмотров')
 
     author = relationship('User', back_populates='posts', uselist=False)
     blog = relationship('Blog', back_populates='posts', uselist=False)
