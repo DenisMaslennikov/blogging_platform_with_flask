@@ -20,6 +20,7 @@ class Post(BaseModel):
     )
     anons = Column(String(500), nullable=False, doc='Анонс')
     views = Column(Integer, default=0, nullable=False, doc='Просмотров')
+    category_id = Column(Integer, ForeignKey('categories.id'), doc='Категория')
 
     author = relationship('User', back_populates='posts', uselist=False)
     blog = relationship('Blog', back_populates='posts', uselist=False)
@@ -30,3 +31,4 @@ class Post(BaseModel):
         back_populates='posts',
         uselist=True
     )
+    category = relationship('Category', back_populates='posts', uselist=False)

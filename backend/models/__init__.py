@@ -7,6 +7,7 @@ from .posts import Post
 from .tags import Tag
 from .tags_posts import TagsPostsAssociation
 from .users import User
+from .categories import Category
 
 __all__ = (
     'TagsPostsAssociation',
@@ -16,6 +17,7 @@ __all__ = (
     'Comment',
     'Blog',
     'BaseModel',
+    'Category',
 )
 
 db = SQLAlchemy()
