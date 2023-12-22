@@ -9,6 +9,7 @@
             <span><i class="icon-calendar mr-2"></i>{{ post.pub_date }}</span>
             <span><a href="{{ url_for('category.by_category', slug=post.category.slug) }}"><i class="icon-folder-o mr-2"></i>{{ post.category.name }}</a></span>
             <span><i class="icon-comment2 mr-2"></i>{{ post.comments|length }}</span>
+            <span>👁 {{ post.views }}</span>
           </p>
         </div>
         <p class="mb-4">{{ post.anons }}</p>

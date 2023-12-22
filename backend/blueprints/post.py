@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from sqlalchemy.orm import joinedload
 
+from backend.core.db import db
 from backend.models import Post
 
 post_blueprint = Blueprint('post', __name__)
@@ -13,5 +14,7 @@ def post_detail(slug):
         joinedload(Post.author),
         joinedload(Post.tags),
     ).filter(Post.slug == slug).first()
+    post.views += 1
+    db.session.commit()
 
     return render_template('detail.html', post=post)
