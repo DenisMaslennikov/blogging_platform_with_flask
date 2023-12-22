@@ -1,5 +1,3 @@
-from flask_sqlalchemy import SQLAlchemy
-
 from .base_model import BaseModel
 from .blogs import Blog
 from .comments import Comment
@@ -20,4 +18,3 @@ __all__ = (
     'Category',
 )
 
-db = SQLAlchemy()

@@ -1,0 +1,19 @@
+{% for post in posts %}
+  <div class="col-md-12">
+    <div class="blog-entry ftco-animate d-md-flex">
+      <a href="{{ url_for('post.post_detail', slug=post.slug) }}" class="img img-2" style="background-image: url({{ url_for("static", filename="images/image_1.jpg") }});"></a>
+      <div class="text text-2 pl-md-4">
+        <h3 class="mb-2"><a href="{{ url_for('post.post_detail', slug=post.slug) }}">{{ post.title }}</a></h3>
+        <div class="meta-wrap">
+          <p class="meta">
+            <span><i class="icon-calendar mr-2"></i>{{ post.pub_date }}</span>
+            <span><a href="{{ url_for('post.post_detail', slug=post.slug) }}"><i class="icon-folder-o mr-2"></i>{{ post.category.name }}</a></span>
+            <span><i class="icon-comment2 mr-2"></i>{{ post.comments|length }}</span>
+          </p>
+        </div>
+        <p class="mb-4">{{ post.anons }}</p>
+        <p><a href="{{ url_for('post.post_detail', slug=post.slug) }}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+      </div>
+    </div>
+  </div>
+{%  endfor %}

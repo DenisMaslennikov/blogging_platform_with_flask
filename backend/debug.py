@@ -1,7 +1,20 @@
+from flask import send_from_directory
+from flask_debugtoolbar import DebugToolbarExtension
+
 from core.app import get_app
 from core.config import DebugConfig
+from backend.core.db import db
+from blueprints import blueprints
 
 app = get_app(DebugConfig)
+
+toolbar = DebugToolbarExtension(app)
+
+db.init_app(app)
+
+@app.route('/uploads/<name>')
+def download_file(name: str):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], name)
 
 if __name__ == '__main__':
     app.run(

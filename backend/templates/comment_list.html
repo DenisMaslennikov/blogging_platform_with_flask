@@ -1,0 +1,25 @@
+<h3 class="mb-5 font-weight-bold">
+  {{ post.comments|length }}
+  {% if post.comments|length % 100 % 10 == 1 %}
+    Комментарий
+  {% elif post.comments|length % 100 >=5 and post.comments|length % 100 <=20 %}
+    Комментариев
+  {% elif post.comments|length % 100 % 10 >=2 and post.comments|length % 100 % 10 <=4 %}
+    Комментария
+  {% endif %}
+</h3>
+
+  <ul class="comment-list">
+    {% for comment in post.comments %}
+      <li class="comment">
+        <div class="vcard bio">
+          <img src="images/person_1.jpg" alt="Image placeholder">
+        </div>
+        <div class="comment-body">
+          <h3>{{ comment.author.username }}</h3>
+          <div class="meta">{{ comment.created_utc.strftime('%Y-%m-%d %H:%M:%S') }}</div>
+          <p>{{ comment.text }}</p>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>

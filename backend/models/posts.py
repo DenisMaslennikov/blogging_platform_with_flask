@@ -24,9 +24,14 @@ class Post(BaseModel):
 
     author = relationship('User', back_populates='posts', uselist=False)
     blog = relationship('Blog', back_populates='posts', uselist=False)
-    comments = relationship('Comments', back_populates='post', uselist=True)
+    comments = relationship(
+        'Comment',
+        back_populates='post',
+        uselist=True,
+        order_by = 'Comment.created_utc',
+    )
     tags = relationship(
-        'Tags',
+        'Tag',
         secondary=TagsPostsAssociation.__table__,
         back_populates='posts',
         uselist=True

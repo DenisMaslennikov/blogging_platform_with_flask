@@ -19,7 +19,16 @@ class User(BaseModel):
     is_active = Column(
         Boolean, nullable=False, default=False, doc='Пользователь активен'
     )
+    about = Column(String(300), nullable=True, doc='О себе')
+    user_image = Column(
+        String(255), nullable=True, doc='Изображение пользователя'
+    )
 
     blog = relationship('Blog', back_populates='user', uselist=False)
     posts = relationship('Post', back_populates='author', uselist=True)
-    comments = relationship('Comments', back_populates='author', uselist=True)
+    comments = relationship(
+        'Comment',
+        back_populates='author',
+        uselist=True,
+        order_by='desc(Comment.created_utc)',
+    )

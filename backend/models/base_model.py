@@ -1,9 +1,11 @@
 from sqlalchemy import INTEGER, TIMESTAMP, Column
-from sqlalchemy.orm import DeclarativeBase, Query
+from sqlalchemy.orm import Query
 from sqlalchemy.sql.expression import func
 
+from backend.core.db import db
 
-class BaseModel(DeclarativeBase):
+
+class BaseModel(db.Model):
     query: Query
     __abstract__ = True
 

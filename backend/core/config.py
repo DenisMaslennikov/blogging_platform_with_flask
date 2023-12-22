@@ -17,10 +17,14 @@ class BaseConfig:
     )
     ROOT_PATH = BASE_DIR
     UPLOAD_FOLDER = '/media/'
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+    MAX_CONTENT_LENGTH = 5 * 1024 * 1024
+    PAGINATED_BY = 10
 
 
 class DebugConfig(BaseConfig):
     DEBUG = True
+    DEBUG_TB_PANELS = ('flask_debugtoolbar_sqlalchemy.SQLAlchemyPanel', )
 
 
 class ProductionConfig(BaseConfig):
