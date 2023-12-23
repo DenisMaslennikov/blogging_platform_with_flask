@@ -20,3 +20,6 @@ class Blog(BaseModel):
 
     user = relationship('User', back_populates='blog', uselist=False)
     posts = relationship('Post', back_populates='blog', uselist=True)
+
+    def __repr__(self):
+        return self.title

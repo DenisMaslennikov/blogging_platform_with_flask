@@ -37,3 +37,6 @@ class Post(BaseModel):
         uselist=True
     )
     category = relationship('Category', back_populates='posts', uselist=False)
+
+    def __repr__(self):
+        return self.title

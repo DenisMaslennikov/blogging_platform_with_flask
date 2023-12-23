@@ -18,3 +18,6 @@ class Tag(BaseModel):
         back_populates='tags',
         uselist=True,
     )
+
+    def __repr__(self):
+        return self.name

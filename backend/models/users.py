@@ -32,3 +32,6 @@ class User(BaseModel):
         uselist=True,
         order_by='desc(Comment.created_utc)',
     )
+
+    def  __repr__(self):
+        return self.username

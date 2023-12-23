@@ -24,3 +24,6 @@ class Comment(BaseModel):
 
     author = relationship('User', back_populates='comments', uselist=False)
     post = relationship('Post', back_populates='comments', uselist=False)
+
+    def __repr__(self):
+        return self.text

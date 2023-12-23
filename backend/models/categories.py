@@ -12,3 +12,6 @@ class Category(BaseModel):
     slug = Column(String(100), nullable=False, doc='Слаг')
 
     posts = relationship('Post', uselist=True, back_populates='category')
+
+    def __repr__(self):
+        return self.name
