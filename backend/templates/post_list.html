@@ -14,7 +14,11 @@
         </div>
         <p class="mb-4">{{ post.anons }}</p>
         <p><a href="{{ url_for('post.post_detail', slug=post.slug) }}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+        <div class="meta-wrap">
+          {% include 'post_tags_cloud.html' %}
+        </div>
       </div>
+
     </div>
   </div>
 {% endfor %}
