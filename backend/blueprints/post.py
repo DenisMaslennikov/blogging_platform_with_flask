@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Blueprint, render_template
 from sqlalchemy.orm import joinedload
 
@@ -13,7 +15,9 @@ def post_detail(slug):
         joinedload(Post.comments),
         joinedload(Post.author),
         joinedload(Post.tags),
-    ).filter(Post.slug == slug).first()
+    ).filter(Post.slug == slug).filter(
+        Post.pub_date <= datetime.now(), Post.published
+    ).first()
     post.views += 1
     db.session.commit()
 

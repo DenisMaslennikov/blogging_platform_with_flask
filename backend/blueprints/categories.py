@@ -1,3 +1,4 @@
+from datetime import datetime
 from math import ceil
 
 from flask import Blueprint, render_template, current_app, request
@@ -14,15 +15,23 @@ def by_category(slug):
     """Просмотр страницы тега"""
     per_page = current_app.config.get('PAGINATED_BY', 10)
     page = request.args.get('page', 1)
+    category = Category.query.filter(Category.slug == slug).scalar()
     posts = Post.query.order_by(desc(Post.pub_date)).options(
         joinedload(Post.author),
         joinedload(Post.category),
         joinedload(Post.tags),
         joinedload(Post.comments),
     ).filter(
-        Post.category.has(Category.slug == slug)).limit(
+        Post.category.has(Category.slug == slug)).filter(
+        Post.pub_date <= datetime.now(), Post.published
+    ).limit(
         per_page * page
     ).offset(
         per_page * (page - 1)).all()
     page_count = ceil(len(posts) / per_page)
-    return render_template('main.html', posts=posts, page_count=page_count)
+    return render_template(
+        'main.html',
+        posts=posts,
+        page_count=page_count,
+        title=f'Платформа для блогинга просмотр категории {category.name}',
+    )

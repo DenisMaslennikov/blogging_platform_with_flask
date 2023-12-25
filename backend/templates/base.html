@@ -83,7 +83,6 @@
 	              <ul class="categories">
 
                   {% for category in categories %}
-                    {{ category }}
                     <li><a href="{{ url_for('category.by_category', slug=category.slug) }}"> {{ category.name }} <span>{{ category.post_count }}</span></a></li>
                   {% endfor %}
 	              </ul>

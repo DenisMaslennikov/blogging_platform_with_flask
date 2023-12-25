@@ -1,4 +1,6 @@
-from sqlalchemy import TEXT, Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import (
+    TEXT, Column, DateTime, ForeignKey, Integer, String, Boolean
+)
 from sqlalchemy.orm import relationship
 
 from .base_model import BaseModel
@@ -21,6 +23,7 @@ class Post(BaseModel):
     anons = Column(String(500), nullable=False, doc='Анонс')
     views = Column(Integer, default=0, nullable=False, doc='Просмотров')
     category_id = Column(Integer, ForeignKey('categories.id'), doc='Категория')
+    published = Column(Boolean, doc='Опубликовано', default=False)
 
     author = relationship('User', back_populates='posts', uselist=False)
     blog = relationship('Blog', back_populates='posts', uselist=False)
@@ -37,6 +40,7 @@ class Post(BaseModel):
         uselist=True
     )
     category = relationship('Category', back_populates='posts', uselist=False)
+
 
     def __repr__(self):
         return self.title

@@ -1,5 +1,7 @@
+import re
+
 from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, validates
 
 from .base_model import BaseModel
 
@@ -23,3 +25,12 @@ class Blog(BaseModel):
 
     def __repr__(self):
         return self.title
+
+    @validates('url')
+    def validate_url(self, key, value):
+        """Проверка поля url на допустимые символы"""
+        assert re.match(r'^[a-z0-9](?:[a-z0-9_-]*[a-z0-9])?$', value), (
+            'Некорректное значение поля url оно может содержать только цифры, '
+            'буквы латинского алфавита и символы "-_"'
+        )
+        return value

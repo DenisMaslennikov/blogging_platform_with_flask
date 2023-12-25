@@ -1,12 +1,14 @@
+from datetime import datetime
+
 from flask import send_from_directory
 from flask_debugtoolbar import DebugToolbarExtension
-from sqlalchemy import func
+from sqlalchemy import func, column
 from sqlalchemy.orm import joinedload
 
-from core.app import get_app
-from core.config import DebugConfig
+from backend.core.app import get_app
+from backend.core.config import DebugConfig
 from backend.core.db import db
-from backend.models import Category
+from backend.models import Category, Post
 
 app = get_app(DebugConfig)
 
@@ -17,10 +19,17 @@ db.init_app(app)
 @app.context_processor
 def push_base_context():
     """Базовый контекст для всех страниц"""
-    categories = Category.query.options(
-        joinedload(Category.posts)
-    ).group_by(Category.slug, Category.name, Category.id).add_column(
-        func.count(Category.posts).label('post_count')).all()
+    categories = Category.query.join(
+        Post, Category.id == Post.category_id
+    ).group_by(
+        Category.slug, Category.name, Category.id
+    ).filter(Post.pub_date < datetime.now(), Post.published).with_entities(
+        Category.slug,
+        Category.name,
+        func.count(Category.posts).label('post_count')
+    )
+
+
     return dict(categories=categories)
 
 @app.route('/uploads/<name>')

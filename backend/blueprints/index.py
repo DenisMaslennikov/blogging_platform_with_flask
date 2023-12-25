@@ -1,3 +1,4 @@
+from datetime import datetime
 from math import ceil
 
 from flask import Blueprint, render_template, current_app, request
@@ -25,11 +26,18 @@ def index():
         joinedload(Post.category),
         joinedload(Post.tags),
         joinedload(Post.comments),
-    ).order_by(desc(Post.pub_date)).limit(
+    ).order_by(desc(Post.pub_date)).filter(
+        Post.pub_date <= datetime.now(), Post.published
+    ).limit(
         per_page * page
     ).offset(
         per_page * (page - 1)
     ).all()
     page_count = ceil(len(posts) / per_page)
 
-    return render_template('main.html', posts=posts, page_count=page_count)
+    return render_template(
+        'main.html',
+        posts=posts,
+        page_count=page_count,
+        title='Платформа для блогинга',
+    )
