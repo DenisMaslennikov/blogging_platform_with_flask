@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col">
+    <div class="block-27">
+      <ul>
+        {% if posts.has_prev %}
+          <li><a href="{{ url_for(request.endpoint, page=posts.page-1) }}">&lt;</a></li>
+        {% endif %}
+        {% for page in posts.iter_pages(right_current=2) %}
+          {% if page %}
+            {% if posts.page == page %}
+             <li class="active"><span>{{ page }}</span></li>
+            {% else %}
+              <li><a href="{{ url_for(request.endpoint, page=page) }}">{{ page }}</a></li>
+            {% endif %}
+          {% else %}
+            ...
+          {% endif %}
+        {% endfor %}
+        {% if posts.has_next %}
+          <li><a href="{{ url_for(request.endpoint, page=posts.page+1) }}">></a></li>
+        {% endif %}
+
+      </ul>
+    </div>
+  </div>
+</div>

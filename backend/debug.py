@@ -37,6 +37,9 @@ def push_base_context():
         func.extract('month', Post.pub_date).label('month'),
         func.extract('year', Post.pub_date).label('year'),
         func.count(Post.id).label('post_count'),
+    ).order_by(
+        desc(func.extract('year', Post.pub_date)),
+        desc(func.extract('month', Post.pub_date)),
     ).all()
 
     popular = Post.query.order_by(desc(Post.views)).options(

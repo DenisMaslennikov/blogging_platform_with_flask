@@ -31,7 +31,7 @@ class Post(BaseModel):
         'Comment',
         back_populates='post',
         uselist=True,
-        order_by='Comment.created_utc',
+        order_by='desc(Comment.created_utc)',
     )
     tags = relationship(
         'Tag',

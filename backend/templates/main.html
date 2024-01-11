@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}{{ title }}{% endblock title %}
 {% block content %}
-  {% include 'post_list.html' %}
+  <div class="col-xl-8 py-5 px-md-5">
+    <div class="pt-md-4">
+      {% include 'post_list.html' %}
+    </div>
+    {% include 'pagination.html' %}
+  </div>
 {% endblock content %}
