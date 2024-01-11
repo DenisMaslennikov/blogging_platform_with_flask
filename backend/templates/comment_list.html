@@ -1,11 +1,13 @@
 <h3 class="mb-5 font-weight-bold">
-  {{ post.comments|length }}
-  {% if post.comments|length % 100 % 10 == 1 %}
-    Комментарий
-  {% elif post.comments|length % 100 >=5 and post.comments|length % 100 <=20 %}
-    Комментариев
-  {% elif post.comments|length % 100 % 10 >=2 and post.comments|length % 100 % 10 <=4 %}
-    Комментария
+  {% if post.comments|length > 0 %}
+    {{ post.comments|length  }}
+    {% if post.comments|length % 100 % 10 == 1 %}
+      Комментарий
+    {% elif post.comments|length % 100 >=5 and post.comments|length % 100 <=20 %}
+      Комментариев
+    {% elif post.comments|length % 100 % 10 >=2 and post.comments|length % 100 % 10 <=4 %}
+      Комментария
+    {% endif %}
   {% endif %}
 </h3>
 

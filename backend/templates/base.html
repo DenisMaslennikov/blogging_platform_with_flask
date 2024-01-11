@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ url_for("static", filename="css/flaticon.css") }}">
     <link rel="stylesheet" href="{{ url_for("static", filename="css/icomoon.css") }}">
     <link rel="stylesheet" href="{{ url_for("static", filename="css/style.css") }}">
+    <script src="{{ url_for("static", filename="js/getmonthname.js") }}"></script>
   </head>
   <body>
 
@@ -49,7 +50,7 @@
 	    	<div class="container">
 	    		<div class="row d-flex">
 	    			<div class="col-xl-8 py-5 px-md-5">
-	    				<div class="row pt-md-4">
+	    				<div class="pt-md-4">
                 {% block content %}
                 {% endblock content %}
 			    		</div><!-- END-->
@@ -87,75 +88,42 @@
                   {% endfor %}
 	              </ul>
 	            </div>
-
 	            <div class="sidebar-box ftco-animate">
 	              <h3 class="sidebar-heading">Popular Articles</h3>
-	              <div class="block-21 mb-4 d-flex">
-	                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-	                <div class="text">
-	                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-	                  <div class="meta">
-	                    <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-	                    <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-	                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-	                  </div>
-	                </div>
-	              </div>
-	              <div class="block-21 mb-4 d-flex">
-	                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-	                <div class="text">
-	                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-	                  <div class="meta">
-	                    <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-	                    <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-	                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-	                  </div>
-	                </div>
-	              </div>
-	              <div class="block-21 mb-4 d-flex">
-	                <a class="blog-img mr-4" style="background-image: url(images/image_3.jpg);"></a>
-	                <div class="text">
-	                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-	                  <div class="meta">
-	                    <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-	                    <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-	                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-	                  </div>
-	                </div>
-	              </div>
+                {% for post in popular %}
+                  <div class="block-21 mb-4 d-flex">
+                    <a class="blog-img mr-4" style="background-image: url({{ url_for("static", filename="images/image_1.jpg") }});"></a>
+                    <div class="text">
+                      <h3 class="heading"><a href="{{ url_for("post.post_detail", slug=post.slug) }}">{{ post.title }}</a></h3>
+                      <div class="meta">
+                        <div><a href="{{ url_for("post.post_detail", slug=post.slug) }}"><span class="icon-calendar"></span>{{ post.pub_date }}</a></div>
+                        <div><a href="{{ url_for("post.post_detail", slug=post.slug) }}"><span class="icon-person"></span>{{ post.author.username }}</a></div>
+                        <div><a href="{{ url_for("post.post_detail", slug=post.slug) }}"><span class="icon-chat"></span> {{ post.views }}</a></div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
 	            </div>
 
 	            <div class="sidebar-box ftco-animate">
 	              <h3 class="sidebar-heading">Tag Cloud</h3>
 	              <ul class="tagcloud">
-	                <a href="#" class="tag-cloud-link">animals</a>
-	                <a href="#" class="tag-cloud-link">human</a>
-	                <a href="#" class="tag-cloud-link">people</a>
-	                <a href="#" class="tag-cloud-link">cat</a>
-	                <a href="#" class="tag-cloud-link">dog</a>
-	                <a href="#" class="tag-cloud-link">nature</a>
-	                <a href="#" class="tag-cloud-link">leaves</a>
-	                <a href="#" class="tag-cloud-link">food</a>
+                  {% for tag in tag_cloud %}
+	                  <a href="{{ url_for('tags.by_tag', slug=tag.slug) }}" class="tag-cloud-link">{{ tag.name }} {{ tag.count }}</a>
+                  {% endfor %}
 	              </ul>
 	            </div>
 
 	            <div class="sidebar-box ftco-animate">
 	            	<h3 class="sidebar-heading">Archives</h3>
 	              <ul class="categories">
-	              	<li><a href="#">Decob14 2018 <span>(10)</span></a></li>
-	                <li><a href="#">September 2018 <span>(6)</span></a></li>
-	                <li><a href="#">August 2018 <span>(8)</span></a></li>
-	                <li><a href="#">July 2018 <span>(2)</span></a></li>
-	                <li><a href="#">June 2018 <span>(7)</span></a></li>
-	                <li><a href="#">May 2018 <span>(5)</span></a></li>
+                  {% for archive in archives %}
+                    <li><a href="{{ url_for("month.by_month", month=archive.month, year=archive.year) }}"><script>document.write(getMonthName({{ archive.month }}))</script> {{ archive.year}} <span>{{ archive.post_count }}</span></a></li>
+                  {% endfor %}
 	              </ul>
 	            </div>
 
 
-	            <div class="sidebar-box ftco-animate">
-	              <h3 class="sidebar-heading">Paragraph</h3>
-	              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut.</p>
-	            </div>
 	          </div><!-- END COL -->
 	    		</div>
 	    	</div>
@@ -182,6 +150,8 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="{{ url_for("static", filename="js/google-map.js") }}"></script>
   <script src="{{ url_for("static", filename="js/main.js") }}"></script>
+
+
     
   </body>
 </html>

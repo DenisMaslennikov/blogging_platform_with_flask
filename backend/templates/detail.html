@@ -2,11 +2,12 @@
 {% block title %}{{ post.title }}{% endblock title %}
 {% block content %}
   <h1 class="mb-3">{{ post.title }}</h1>
+  <img src="{{ post.post_image_file }}">
   {{ post.text|safe }}
   {% include "post_tags_cloud.html" %}
   <div class="about-author d-flex p-4 bg-light">
     <div class="bio mr-5">
-      <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
+      <img src="{{ url_for("static", filename="images/person_1.jpg") }}" alt="Image placeholder" class="img-fluid mb-4">
     </div>
     <div class="desc">
       <h3>{{ post.author.username }}</h3>

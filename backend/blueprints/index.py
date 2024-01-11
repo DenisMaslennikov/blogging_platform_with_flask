@@ -13,7 +13,7 @@ index_blueprint = Blueprint('index', __name__)
 def index():
     """Главная страница"""
     per_page = current_app.config.get('PAGINATED_BY', 10)
-    page = request.args.get('page', 1)
+    page = request.args.get('page', 1, type=int)
     # posts = db.paginate(Post.query.order_by(desc(Post.pub_date)).options(
     #     joinedload(Post.author),
     #     joinedload(Post.category),
@@ -28,16 +28,10 @@ def index():
         joinedload(Post.comments),
     ).order_by(desc(Post.pub_date)).filter(
         Post.pub_date <= datetime.now(), Post.published
-    ).limit(
-        per_page * page
-    ).offset(
-        per_page * (page - 1)
-    ).all()
-    page_count = ceil(len(posts) / per_page)
+    ).paginate(page=page, per_page=per_page)
 
     return render_template(
         'main.html',
         posts=posts,
-        page_count=page_count,
         title='Платформа для блогинга',
     )
