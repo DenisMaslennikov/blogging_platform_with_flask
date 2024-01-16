@@ -1,11 +1,9 @@
 from datetime import datetime
-from math import ceil
 
 from flask import Blueprint, render_template, current_app, request
 from sqlalchemy import desc
 from sqlalchemy.orm import joinedload
 
-from backend.core.db import db
 from backend.models import Post, Category
 
 category_blueprint = Blueprint('category', __name__)

@@ -1,6 +1,8 @@
 from flask import Flask
 
 from backend.blueprints import blueprints
+from backend.core.db import db
+from backend.core.base_service import push_base_context
 
 
 def get_app(config) -> Flask:
@@ -10,8 +12,10 @@ def get_app(config) -> Flask:
         template_folder=config.ROOT_PATH / 'templates'
     )
     app.config.from_object(config)
+    db.init_app(app)
 
-    # db.init_app(app)
+    # Добавляем базовый контекст доступный для всех страниц
+    app.context_processor(push_base_context)
 
     for blueprint in blueprints:
         app.register_blueprint(

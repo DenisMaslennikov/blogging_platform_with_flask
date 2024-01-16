@@ -15,6 +15,5 @@ blueprints = [
     BlueprintContainer(post_blueprint, '/post'),
     BlueprintContainer(tags_blueprint, '/tag'),
     BlueprintContainer(category_blueprint, '/category'),
-    BlueprintContainer(month_blueprint, '/month')
-
+    BlueprintContainer(month_blueprint, '/month'),
 ]
