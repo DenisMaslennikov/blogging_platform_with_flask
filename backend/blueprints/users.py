@@ -10,21 +10,27 @@ from flask import (
     session,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import exc
 
 from backend.core.db import db
 from backend.models import User
 
 users_blueprint = Blueprint('users', __name__)
 
+
 @users_blueprint.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         valid = True
-        user = User.query.filter(User.username==request.form['username']).first()
+        user = User.query.filter(
+            User.username == request.form['username']
+        ).first()
         if not user:
             flash('Пользователь с таким именем не найден')
             valid = False
-        if not check_password_hash(user.password, request.form['password']):
+        if user and not check_password_hash(
+                user.password, request.form['password']
+        ):
             flash('Введен неправильный пароль')
             valid = False
         if valid:
@@ -33,6 +39,7 @@ def login():
             session['login'] = True
             session['user_id'] = user.id
     return render_template('login.html', data=request.form)
+
 
 @users_blueprint.route('/registration', methods=['POST', 'GET'])
 def registration():
@@ -85,11 +92,7 @@ def registration():
                 )
                 db.session.add(new_user)
                 db.session.commit()
-            except:
+            except exc.SQLAlchemyError:
                 db.session.rollback()
             return redirect(url_for('users.login'))
-
-
-
-
     return render_template('registration.html', data=request.form)

@@ -8,6 +8,7 @@ from backend.models import Post
 
 post_blueprint = Blueprint('post', __name__)
 
+
 @post_blueprint.route('/<slug>')
 def post_detail(slug):
     """Просмотр конкретного поста"""

@@ -8,6 +8,7 @@ from backend.models import Post, Category
 
 category_blueprint = Blueprint('category', __name__)
 
+
 @category_blueprint.route('/<slug>')
 def by_category(slug):
     """Просмотр страницы тега"""

@@ -10,9 +10,11 @@ toolbar = DebugToolbarExtension(app)
 
 # db.init_app(app)
 
+
 @app.route('/uploads/<name>')
 def download_file(name: str):
     return send_from_directory(app.config['UPLOAD_FOLDER'], name)
+
 
 if __name__ == '__main__':
     app.run(

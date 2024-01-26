@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
-from  .base_model import BaseModel
+from .base_model import BaseModel
 
 
 class Category(BaseModel):

@@ -3,6 +3,7 @@ from flask import Flask
 from backend.blueprints import blueprints
 from backend.core.db import db
 from backend.core.base_service import push_base_context
+from backend.core.login import login_manager
 
 
 def get_app(config) -> Flask:
@@ -14,6 +15,8 @@ def get_app(config) -> Flask:
     )
     app.config.from_object(config)
     db.init_app(app)
+    login_manager.init_app(app)
+    login_manager.login_view = 'users.login'
 
     # Добавляем базовый контекст доступный для всех страниц
     app.context_processor(push_base_context)

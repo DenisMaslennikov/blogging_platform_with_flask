@@ -8,6 +8,7 @@ from backend.models import Post, Tag
 
 tags_blueprint = Blueprint('tags', __name__)
 
+
 @tags_blueprint.route('/<slug>')
 def by_tag(slug):
     """Просмотр страницы тега"""

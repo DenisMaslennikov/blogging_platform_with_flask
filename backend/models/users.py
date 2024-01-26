@@ -1,10 +1,11 @@
+from flask_login import UserMixin
 from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 
 from .base_model import BaseModel
 
 
-class User(BaseModel):
+class User(BaseModel, UserMixin):
     """Модель пользователя"""
     __tablename__ = 'users'
 
@@ -33,5 +34,5 @@ class User(BaseModel):
         order_by='desc(Comment.created_utc)',
     )
 
-    def  __repr__(self):
+    def __repr__(self):
         return self.username
