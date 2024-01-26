@@ -5,6 +5,7 @@ from .post import post_blueprint
 from .tags import tags_blueprint
 from .categories import category_blueprint
 from .month import month_blueprint
+from .users import users_blueprint
 
 BlueprintContainer = namedtuple(
     'BlueprintContainer', ['blueprint', 'url_prefix']
@@ -16,4 +17,5 @@ blueprints = [
     BlueprintContainer(tags_blueprint, '/tag'),
     BlueprintContainer(category_blueprint, '/category'),
     BlueprintContainer(month_blueprint, '/month'),
+    BlueprintContainer(users_blueprint, '/user')
 ]

@@ -52,6 +52,7 @@
      				{% block content %}
             {% endblock content %}
 	    			<div class="col-xl-4 sidebar ftco-animate bg-light pt-5">
+              <a href="{{ url_for('users.login') }}">Авторизация</a>
 	            <div class="sidebar-box pt-md-4">
 	              <form action="#" class="search-form">
 	                <div class="form-group">
@@ -61,7 +62,7 @@
 	              </form>
 	            </div>
 	            <div class="sidebar-box ftco-animate">
-	            	<h3 class="sidebar-heading">Categories</h3>
+	            	<h3 class="sidebar-heading">Категории</h3>
 	              <ul class="categories">
                   {% for category in categories %}
                     <li><a href="{{ url_for('category.by_category', slug=category.slug) }}"> {{ category.name }} <span>{{ category.post_count }}</span></a></li>
@@ -69,7 +70,7 @@
 	              </ul>
 	            </div>
 	            <div class="sidebar-box ftco-animate">
-	              <h3 class="sidebar-heading">Popular Articles</h3>
+	              <h3 class="sidebar-heading">Популярно в блогах</h3>
                 {% for post in popular %}
                   <div class="block-21 mb-4 d-flex">
                     <a class="blog-img mr-4" style="background-image: url({{ url_for("static", filename="images/image_1.jpg") }});"></a>
@@ -86,7 +87,7 @@
 	            </div>
 
 	            <div class="sidebar-box ftco-animate">
-	              <h3 class="sidebar-heading">Tag Cloud</h3>
+	              <h3 class="sidebar-heading">Облоко тегов</h3>
 	              <ul class="tagcloud">
                   {% for tag in tag_cloud %}
 	                  <a href="{{ url_for('tags.by_tag', slug=tag.slug) }}" class="tag-cloud-link">{{ tag.name }} {{ tag.count }}</a>
@@ -95,7 +96,7 @@
 	            </div>
 
 	            <div class="sidebar-box ftco-animate">
-	            	<h3 class="sidebar-heading">Archives</h3>
+	            	<h3 class="sidebar-heading">Архивы</h3>
 	              <ul class="categories">
                   {% for archive in archives %}
                     <li><a href="{{ url_for("month.by_month", month=archive.month, year=archive.year) }}"><script>document.write(getMonthName({{ archive.month }}))</script> {{ archive.year}} <span>{{ archive.post_count }}</span></a></li>

@@ -1,5 +1,4 @@
 from datetime import datetime
-from math import ceil
 
 from flask import Blueprint, render_template, current_app, request
 from sqlalchemy import desc

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock title %}
+{% block content %}
+  <div class="col-xl-8 py-5 px-md-5">
+    <div class="pt-md-4">
+      <h1>Регистрация</h1>
+      <form method="post" action="" class="bg-light p-5 contact-form">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <div class="form-group">
+          <label for="username">Имя пользователя</label>
+          <input type="text" class="form-control" placeholder="Имя пользователя" name="username" value="{{ data.username }}" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Почта</label>
+          <input type="text" class="form-control" placeholder="Почта" name="email" value="{{ data.email }}" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Имя</label>
+          <input type="text" class="form-control" placeholder="Имя" name="first_name"  value="{{ data.firstname }}">
+        </div>
+        <div class="form-group">
+          <label for="surname">Фамилия</label>
+          <input type="text" class="form-control" placeholder="Фамилия" name="last_name"  value="{{ data.lastname }}">
+        </div>
+        <div class="form-group">
+          <label for="middlename">Отчество</label>
+          <input type="text" class="form-control" placeholder="Отчество" name="middle_name"  value="{{ data.middlename }}">
+        </div>
+        <div class="form-group">
+          <label for="userimage">Изображение пользователя</label>
+          <input type="file" class="form-control" placeholder="Изображение пользователя" name="user_image" accept="image/png, image/jpeg"  value="{{ data.userimage }}">
+        </div>
+        <div class="form-group">
+          <label for="about">О себе</label>
+          <textarea cols="30" rows="7" class="form-control" placeholder="О себе" name="about" >{{ data.about }}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" class="form-control" placeholder="Пароль" name="password"  value="{{ data.password }}" required>
+        </div>
+        <div class="form-group">
+          <label for="password2">Повторите пароль</label>
+          <input type="password" class="form-control" placeholder="Повторите пароль" name="password2" value="{{ data.password2 }}" required>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Зарегистрироваться" class="btn btn-primary py-3 px-5">
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

@@ -6,6 +6,7 @@ from backend.core.base_service import push_base_context
 
 
 def get_app(config) -> Flask:
+    """Создание Flask приложения на основе переданного конфига"""
     app = Flask(
         __name__,
         static_folder=config.ROOT_PATH / 'static',

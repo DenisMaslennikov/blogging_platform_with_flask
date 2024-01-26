@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Авторизация{% endblock title %}
+{% block content %}
+  <div class="col-xl-8 py-5 px-md-5">
+    <div class="pt-md-4">
+      <form action="" class="bg-light p-5 contact-form" method="post">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <div class="form-group">
+          <label for="username">Имя пользователя</label>
+          <input type="text" class="form-control" placeholder="Имя пользователя" name="username" value="{{ data.username }}" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" class="form-control" placeholder="Пароль" name="password" value="{{ data.password }}" required>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Авторизация" class="btn btn-primary py-3 px-5">
+        </div>
+      </form>
+      <a href="{{ url_for('users.registration') }}">Регистрация</a>
+    </div>
+  </div>
+{% endblock content %}
