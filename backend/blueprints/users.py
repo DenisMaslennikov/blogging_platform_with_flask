@@ -11,6 +11,7 @@ from flask import (
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import exc
+from flask_login import login_user, logout_user, current_user, login_required
 
 from backend.core.db import db
 from backend.models import User
@@ -20,6 +21,7 @@ users_blueprint = Blueprint('users', __name__)
 
 @users_blueprint.route('/login', methods=['POST', 'GET'])
 def login():
+    """Авторизация пользователя"""
     if request.method == 'POST':
         valid = True
         user = User.query.filter(
@@ -34,15 +36,22 @@ def login():
             flash('Введен неправильный пароль')
             valid = False
         if valid:
-            # TODO заменить на нормальный логин
             flash('вы успешно авторизовались')
-            session['login'] = True
-            session['user_id'] = user.id
+            login_user(user)
     return render_template('login.html', data=request.form)
+
+
+@login_required
+@users_blueprint.route('/logout', methods=['GET'])
+def logout():
+    """logout авторизованного пользователя"""
+    logout_user()
+    return redirect(url_for('users.login'))
 
 
 @users_blueprint.route('/registration', methods=['POST', 'GET'])
 def registration():
+    """Регистрация пользователя"""
     if request.method == 'POST':
         valid = True
         if len(request.form['username']) < 4:
