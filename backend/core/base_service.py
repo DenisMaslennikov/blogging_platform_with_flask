@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from sqlalchemy import func, desc
@@ -52,3 +53,10 @@ def push_base_context():
         popular=popular,
         tag_cloud=tag_cloud
     )
+
+
+def check_and_create_upload_folder(app):
+    """Проверяем наличие аплоад папки и создаем её в случае отсутствия"""
+    upload_folder = app.config.get('UPLOAD_FOLDER')
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)

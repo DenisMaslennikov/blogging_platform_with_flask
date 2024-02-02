@@ -7,14 +7,14 @@ from flask import (
     flash,
     redirect,
     url_for,
-    session,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import exc
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user, login_required
 
 from backend.core.db import db
 from backend.models import User
+from backend.services.upload_file import upload_files
 
 users_blueprint = Blueprint('users', __name__)
 
@@ -86,6 +86,7 @@ def registration():
             flash('Длина пароля должна быть минимум 8 символов')
             valid = False
         if valid:
+            images = upload_files(request)
             try:
                 new_user = User(
                     username=request.form['username'],
@@ -96,8 +97,8 @@ def registration():
                     middle_name=request.form['middle_name'],
                     is_active=True,
                     about=request.form['about'],
-                    # TODO поменять на аплоад изображения
-                    user_image=request.form['user_image'],
+                    user_image=images[-1].filename
+
                 )
                 db.session.add(new_user)
                 db.session.commit()

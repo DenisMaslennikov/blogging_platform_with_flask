@@ -2,7 +2,10 @@ from flask import Flask
 
 from backend.blueprints import blueprints
 from backend.core.db import db
-from backend.core.base_service import push_base_context
+from backend.core.base_service import (
+    push_base_context,
+    check_and_create_upload_folder,
+)
 from backend.core.login import login_manager
 
 
@@ -20,6 +23,8 @@ def get_app(config) -> Flask:
 
     # Добавляем базовый контекст доступный для всех страниц
     app.context_processor(push_base_context)
+
+    check_and_create_upload_folder(app)
 
     for blueprint in blueprints:
         app.register_blueprint(

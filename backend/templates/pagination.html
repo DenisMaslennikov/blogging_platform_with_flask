@@ -17,7 +17,7 @@
           {% endif %}
         {% endfor %}
         {% if posts.has_next %}
-          <li><a href="{{ url_for(request.endpoint, slug=request.view_args.get('slug'), page=posts.page + 1) }}">></a></li>
+          <li><a href="{{ url_for(request.endpoint, slug=request.view_args.get('slug'), month=request.view_args.get('month'), year=request.view_args.get('year'), page=posts.page + 1) }}">></a></li>
         {% endif %}
       </ul>
     </div>

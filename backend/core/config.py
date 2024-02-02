@@ -16,7 +16,8 @@ class BaseConfig:
         f':{os.getenv("DB_PORT")}/{os.getenv("POSTGRES_DB")}'
     )
     ROOT_PATH = BASE_DIR
-    UPLOAD_FOLDER = '/media/'
+    UPLOAD_FOLDER = BASE_DIR / 'media'
+    UPLOAD_URL_PREFIX = '/media/'
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024
     PAGINATED_BY = 10
